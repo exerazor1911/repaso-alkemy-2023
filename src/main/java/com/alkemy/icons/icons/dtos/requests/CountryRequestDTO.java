@@ -1,6 +1,5 @@
 package com.alkemy.icons.icons.dtos.requests;
 
-import com.alkemy.icons.icons.entities.IconEntity;
 import lombok.Getter;
 import lombok.Setter;
 

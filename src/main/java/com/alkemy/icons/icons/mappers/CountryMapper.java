@@ -67,21 +67,24 @@ public class CountryMapper {
 
         if (continentRequestDTO.isPresent()) {
             ContinentEntity continentEntity = continentMapper.continentRequestDTOtoEntity(continentRequestDTO.get());
-            continentRepository.save(continentEntity);
+            ContinentEntity continentEntitySaved = continentRepository.save(continentEntity);
 
-            entity.setContinent(continentEntity);
+            entity.setContinent(continentEntitySaved);
+            entity.setContinentId(continentEntitySaved.getId());
         }
 
         Optional<Set<IconRequestDTO>> iconRequestDTOS = Optional.ofNullable(dto.getIcons());
 
         if (iconRequestDTOS.isPresent()) {
 
-            List<IconEntity> iconEntities = iconMapper.iconRequestDTOSetToEntityList(iconRequestDTOS.get());
+            Set<IconEntity> iconEntities = iconMapper.iconRequestDTOSetToEntitySet(iconRequestDTOS.get());
 
             for (IconEntity icon : iconEntities) {
                 icon.addCountry(entity);
                 iconRepository.save(icon);
             }
+
+            entity.setIcons(iconEntities);
         }
 
         return entity;

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -35,9 +36,9 @@ public class IconMapper {
     }
 
 
-    public List<IconEntity> iconRequestDTOSetToEntityList(Set<IconRequestDTO> iconRequestDTOS) {
+    public Set<IconEntity> iconRequestDTOSetToEntitySet(Set<IconRequestDTO> iconRequestDTOS) {
 
-        List<IconEntity> entities = new ArrayList<>();
+        Set<IconEntity> entities = new HashSet<>();
 
         for (IconRequestDTO icon : iconRequestDTOS) {
             entities.add(iconRequestDTOToEntity(icon));

@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class CountryServiceImpl implements CountryService {
 
@@ -36,5 +38,18 @@ public class CountryServiceImpl implements CountryService {
     public CountryResponseDTO save(CountryRequestDTO dto) {
         CountryEntity entity = countryMapper.countryRequestDTOtoEntity(dto);
         return countryMapper.countryEntityToResponseDTO(countryRepository.save(entity));
+    }
+
+    @Override
+    public CountryResponseDTO getById(Long id) {
+        Optional<CountryEntity> entity = countryRepository.findById(id);
+
+        if (entity.isEmpty()) {
+            throw new RuntimeException("country with the provided id not found");
+        }
+
+        CountryResponseDTO dto = countryMapper.countryEntityToResponseDTO(entity.get());
+
+        return dto;
     }
 }

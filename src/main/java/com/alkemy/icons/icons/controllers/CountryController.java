@@ -38,4 +38,10 @@ public class CountryController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedCountry);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getById(@PathVariable Long id) {
+        CountryResponseDTO dto = countryService.getById(id);
+        return ResponseEntity.ok().body(dto);
+    }
+
 }

@@ -14,4 +14,5 @@ public interface CountryService {
 
     public CountryResponseDTO save(CountryRequestDTO dto);
 
+    CountryResponseDTO getById(Long id);
 }

@@ -1,5 +1,6 @@
 package com.alkemy.icons.icons.controllers;
 
+import com.alkemy.icons.icons.dtos.requests.IconRequestDTO;
 import com.alkemy.icons.icons.dtos.responses.IconResponseDTO;
 import com.alkemy.icons.icons.services.IconService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,18 @@ public class IconController {
     public ResponseEntity<?> delete(@PathVariable Long id) {
         iconService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping
+    public ResponseEntity<?> save(@RequestBody IconRequestDTO dto) {
+        IconResponseDTO savedIcon = iconService.save(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedIcon);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody IconRequestDTO dto) {
+        IconResponseDTO resultDto = iconService.update(id, dto);
+        return ResponseEntity.ok().body(resultDto);
     }
 
 }

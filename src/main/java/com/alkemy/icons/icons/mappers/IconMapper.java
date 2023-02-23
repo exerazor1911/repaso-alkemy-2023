@@ -1,12 +1,15 @@
 package com.alkemy.icons.icons.mappers;
 
+import com.alkemy.icons.icons.dtos.requests.CountryRequestDTO;
 import com.alkemy.icons.icons.dtos.requests.IconRequestDTO;
 import com.alkemy.icons.icons.dtos.responses.IconResponseDTO;
+import com.alkemy.icons.icons.entities.CountryEntity;
 import com.alkemy.icons.icons.entities.IconEntity;
+import com.alkemy.icons.icons.repositories.CountryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -14,6 +17,12 @@ import java.util.Set;
 
 @Component
 public class IconMapper {
+
+    @Autowired
+    private CountryMapper countryMapper;
+
+    @Autowired
+    private CountryRepository countryRepository;
 
     public List<IconResponseDTO> iconEntityListToResponseDTOList (List<IconEntity> entities) {
         List<IconResponseDTO> dtos = new ArrayList<>();
@@ -60,5 +69,22 @@ public class IconMapper {
         entity.setCreationDate(lt);
 
         return entity;
+    }
+
+    public IconEntity editEntity(IconEntity iconEntity, IconRequestDTO dto) {
+        iconEntity.setDenomination(dto.getDenomination());
+        iconEntity.setHeight(dto.getHeight());
+        iconEntity.setHistory(dto.getHistory());
+        iconEntity.setImage(dto.getImage());
+
+        for (CountryRequestDTO countryDTO : dto.getCountries()) {
+            CountryEntity countryEntity = countryMapper.countryRequestDTOtoEntity(countryDTO);
+            iconEntity.addCountry(countryEntity);
+            countryEntity.getIcons().add(iconEntity);
+            countryRepository.save(countryEntity);
+        }
+
+        return iconEntity;
+
     }
 }

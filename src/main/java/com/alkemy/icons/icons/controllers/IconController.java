@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("icons")
@@ -39,6 +40,17 @@ public class IconController {
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody IconRequestDTO dto) {
         IconResponseDTO resultDto = iconService.update(id, dto);
         return ResponseEntity.ok().body(resultDto);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<?>> getDetailsByFilters (
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String date,
+            @RequestParam(required = false) Set<Long> cities,
+            @RequestParam(required = false, defaultValue = "ASC") String order
+    ) {
+        List<IconResponseDTO> dtos = iconService.getByFilters(name, date, cities, order);
+        return ResponseEntity.ok().body(dtos);
     }
 
 }

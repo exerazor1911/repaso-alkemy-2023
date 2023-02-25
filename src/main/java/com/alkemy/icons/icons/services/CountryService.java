@@ -15,4 +15,6 @@ public interface CountryService {
     public CountryResponseDTO save(CountryRequestDTO dto);
 
     CountryResponseDTO getById(Long id);
+
+    List<CountryResponseDTO> getByFilters(String name, Long continent, String order);
 }

@@ -44,4 +44,14 @@ public class CountryController {
         return ResponseEntity.ok().body(dto);
     }
 
+    @GetMapping
+    public ResponseEntity<List<?>> getDetailByFilters(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) Long continent,
+            @RequestParam(required = false, defaultValue = "ASC") String order
+    ) {
+        List<CountryResponseDTO> countries = countryService.getByFilters(name, continent, order);
+        return ResponseEntity.ok(countries);
+    }
+
 }

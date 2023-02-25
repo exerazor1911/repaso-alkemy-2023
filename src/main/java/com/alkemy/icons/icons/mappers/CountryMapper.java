@@ -32,7 +32,7 @@ public class CountryMapper {
     @Autowired
     private IconMapper iconMapper;
 
-    public List<CountryBasicResponseDTO> countryEntityListToResponseDTOList(List<CountryEntity> entities) {
+    public List<CountryBasicResponseDTO> countryEntityListToBasicResponseDTOList(List<CountryEntity> entities) {
 
         List<CountryBasicResponseDTO> dtos = new ArrayList<>();
 
@@ -103,5 +103,15 @@ public class CountryMapper {
         dto.setIcons(iconMapper.iconEntityListToResponseDTOList(entity.getIcons().stream().toList()));
 
         return dto;
+    }
+
+    public List<CountryResponseDTO> countryEntityListToResponseDTOList(List<CountryEntity> countryEntities) {
+        List<CountryResponseDTO> dtos = new ArrayList<>();
+
+        for (CountryEntity entity : countryEntities) {
+            dtos.add(countryEntityToResponseDTO(entity));
+        }
+
+        return dtos;
     }
 }

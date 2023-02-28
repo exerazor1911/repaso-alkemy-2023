@@ -4,13 +4,14 @@ import com.alkemy.icons.icons.dtos.filters.CountryFiltersDTO;
 import com.alkemy.icons.icons.entities.CountryEntity;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Component
 public class CountrySpecification {
 
     public Specification<CountryEntity> getByFilters(CountryFiltersDTO filtersDTO) {

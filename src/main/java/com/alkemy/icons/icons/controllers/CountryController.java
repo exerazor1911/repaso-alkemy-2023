@@ -18,11 +18,11 @@ public class CountryController {
     @Autowired
     private CountryService countryService;
 
-    @GetMapping
+  /*  @GetMapping
     public ResponseEntity<?> getAll() {
         List<CountryBasicResponseDTO> countries = countryService.getAllCountries();
         return ResponseEntity.ok().body(countries);
-    }
+    }*/
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
@@ -45,13 +45,13 @@ public class CountryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<?>> getDetailByFilters(
+    public ResponseEntity<List<?>> getDetailsByFilters(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) Long continent,
             @RequestParam(required = false, defaultValue = "ASC") String order
     ) {
         List<CountryResponseDTO> countries = countryService.getByFilters(name, continent, order);
-        return ResponseEntity.ok(countries);
+        return ResponseEntity.ok().body(countries);
     }
 
 }

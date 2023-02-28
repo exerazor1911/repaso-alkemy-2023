@@ -18,11 +18,11 @@ public class IconController {
     @Autowired
     private IconService iconService;
 
-    @GetMapping
+    /*@GetMapping
     public ResponseEntity<?> getAll() {
         List<IconResponseDTO> icons = iconService.getAllIcons();
         return ResponseEntity.ok().body(icons);
-    }
+    }*/
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {

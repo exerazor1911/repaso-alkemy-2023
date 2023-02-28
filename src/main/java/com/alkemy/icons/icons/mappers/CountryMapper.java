@@ -11,6 +11,7 @@ import com.alkemy.icons.icons.entities.IconEntity;
 import com.alkemy.icons.icons.repositories.ContinentRepository;
 import com.alkemy.icons.icons.repositories.IconRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class CountryMapper {
     private ContinentMapper continentMapper;
 
     @Autowired
+    @Lazy
     private IconMapper iconMapper;
 
     public List<CountryBasicResponseDTO> countryEntityListToBasicResponseDTOList(List<CountryEntity> entities) {
